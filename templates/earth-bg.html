@@ -1,34 +1,66 @@
 <style>
-/* ===== DARK BACKGROUND ===== */
+/* ===== REAL 3D EARTH BACKGROUND ===== */
 body {
     background: #080b16;
     overflow: hidden;
     position: relative;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
 }
 
-/* ===== EARTH (Rotating) ===== */
-.earth-bg {
+/* ===== EARTH GLOBE ===== */
+.earth-container {
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 380px;
-    height: 380px;
+    width: 400px;
+    height: 400px;
     transform: translate(-50%, -50%);
-    background: radial-gradient(circle at 35% 35%, #1a8cff, #002244);
-    border-radius: 50%;
-    box-shadow: 0 0 120px rgba(0, 150, 255, 0.25);
-    animation: spinEarth 25s linear infinite;
-    z-index: 0;
-    opacity: 0.25;
+    z-index: -1;
     pointer-events: none;
+    opacity: 0.2;
 }
 
-@keyframes spinEarth {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
+.earth {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #1a8cff, #001a33);
+    box-shadow: 
+        inset -20px -20px 60px rgba(0,0,0,0.6),
+        0 0 100px rgba(0, 150, 255, 0.15);
+    animation: spinEarth 30s linear infinite;
+    position: relative;
+    overflow: hidden;
 }
 
-/* ===== GLOWING RING 1 ===== */
+/* ===== LAND MASS (Fake continents) ===== */
+.earth::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    width: 35%;
+    height: 25%;
+    background: radial-gradient(ellipse at 50% 50%, rgba(0, 200, 100, 0.3), transparent 70%);
+    border-radius: 40% 60% 30% 70%;
+    box-shadow: 0 0 20px rgba(0, 200, 100, 0.1);
+}
+
+.earth::after {
+    content: '';
+    position: absolute;
+    bottom: 20%;
+    right: 15%;
+    width: 30%;
+    height: 20%;
+    background: radial-gradient(ellipse at 50% 50%, rgba(0, 200, 100, 0.2), transparent 70%);
+    border-radius: 50% 30% 60% 40%;
+    box-shadow: 0 0 20px rgba(0, 200, 100, 0.08);
+}
+
+/* ===== GLOW RING ===== */
 .ring {
     position: fixed;
     top: 50%;
@@ -36,37 +68,30 @@ body {
     width: 520px;
     height: 520px;
     transform: translate(-50%, -50%);
-    border: 1.5px solid rgba(0, 255, 255, 0.12);
+    border: 1.5px solid rgba(0, 255, 255, 0.08);
     border-radius: 50%;
-    animation: spinRing 30s linear infinite;
+    animation: spinRing 35s linear infinite;
     z-index: -1;
-    box-shadow: 0 0 60px rgba(0, 255, 255, 0.04);
-}
-.ring::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 50%;
-    width: 20px;
-    height: 20px;
-    background: rgba(0, 255, 255, 0.2);
-    border-radius: 50%;
-    transform: translateX(-50%);
-    box-shadow: 0 0 30px rgba(0, 255, 255, 0.15);
+    box-shadow: 0 0 80px rgba(0, 255, 255, 0.03);
 }
 
-/* ===== RING 2 (Reverse) ===== */
 .ring2 {
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 700px;
-    height: 700px;
+    width: 680px;
+    height: 680px;
     transform: translate(-50%, -50%);
-    border: 1px solid rgba(0, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 255, 0.04);
     border-radius: 50%;
-    animation: spinRing 40s linear infinite reverse;
+    animation: spinRing 45s linear infinite reverse;
     z-index: -1;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes spinEarth {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 @keyframes spinRing {
@@ -74,7 +99,7 @@ body {
     100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* ===== GRID LINES ===== */
+/* ===== GRID ===== */
 .grid {
     position: fixed;
     top: 0;
@@ -82,23 +107,23 @@ body {
     width: 100%;
     height: 100%;
     background-image: 
-        linear-gradient(rgba(0, 255, 255, 0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 255, 0.025) 1px, transparent 1px);
+        linear-gradient(rgba(0, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.02) 1px, transparent 1px);
     background-size: 60px 60px;
     z-index: -1;
 }
 
-/* ===== PARTICLES (Glowing dots) ===== */
+/* ===== PARTICLES ===== */
 .particle {
     position: fixed;
-    width: 3px;
-    height: 3px;
-    background: rgba(0, 255, 255, 0.35);
+    width: 2px;
+    height: 2px;
+    background: rgba(0, 255, 255, 0.3);
     border-radius: 50%;
     animation: floatUp 18s infinite linear;
     z-index: -1;
     pointer-events: none;
-    box-shadow: 0 0 8px rgba(0, 255, 255, 0.15);
+    box-shadow: 0 0 6px rgba(0, 255, 255, 0.1);
 }
 
 @keyframes floatUp {
@@ -113,17 +138,20 @@ body {
 <div class="grid"></div>
 <div class="ring"></div>
 <div class="ring2"></div>
-<div class="earth-bg"></div>
+
+<div class="earth-container">
+    <div class="earth"></div>
+</div>
 
 <!-- ===== PARTICLES JS ===== -->
 <script>
 (function() {
     const body = document.body;
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 50; i++) {
         const p = document.createElement('div');
         p.className = 'particle';
         p.style.left = Math.random() * 100 + '%';
-        p.style.animationDuration = (12 + Math.random() * 18) + 's';
+        p.style.animationDuration = (12 + Math.random() * 20) + 's';
         p.style.animationDelay = (Math.random() * 20) + 's';
         p.style.width = (2 + Math.random() * 4) + 'px';
         p.style.height = p.style.width;
