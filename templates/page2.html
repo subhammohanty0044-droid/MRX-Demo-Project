@@ -6,36 +6,126 @@
     <title>Verify Card</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: #0b0e1a; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; overflow-x: hidden; }
-        .card-box { background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); padding: 40px 30px; border-radius: 30px; max-width: 400px; width: 100%; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 20px 60px rgba(0,0,0,0.6); position: relative; z-index: 1; }
-        .card-box h2 { text-align: center; margin-bottom: 10px; background: linear-gradient(135deg, #00f0ff, #7a2be0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .card-box .sub { text-align: center; color: #aaa; font-size: 14px; margin-bottom: 25px; }
-        .card-preview { background: linear-gradient(145deg, #1a1f2f, #0d111f); border-radius: 20px; padding: 20px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.06); }
+        body {
+            background: #0b0e1a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        .card-box {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            padding: 40px 30px;
+            border-radius: 30px;
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            position: relative;
+            z-index: 1;
+        }
+        .card-box h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #00f0ff, #7a2be0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-box .sub {
+            text-align: center;
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+        .card-preview {
+            background: linear-gradient(145deg, #1a1f2f, #0d111f);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
         .card-preview .chip { font-size: 30px; }
-        .card-preview .number { font-size: 20px; letter-spacing: 2px; margin: 15px 0 10px; font-weight: 600; color: #fff; }
-        .card-preview .details { display: flex; justify-content: space-between; font-size: 13px; color: #ccc; }
+        .card-preview .number {
+            font-size: 20px;
+            letter-spacing: 2px;
+            margin: 15px 0 10px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .card-preview .details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #ccc;
+        }
         .form-group { margin-bottom: 18px; }
-        .form-group label { display: block; font-size: 13px; color: #aaa; margin-bottom: 6px; }
-        .form-group input { width: 100%; padding: 14px 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); color: #fff; font-size: 15px; outline: none; transition: 0.3s; }
-        .form-group input:focus { border-color: #00f0ff; box-shadow: 0 0 20px rgba(0,240,255,0.1); }
-        .btn { width: 100%; padding: 16px; border: none; border-radius: 50px; background: linear-gradient(135deg, #00c8ff, #7a2be0); color: #fff; font-size: 18px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .btn:hover { transform: scale(1.02); box-shadow: 0 0 40px rgba(0,200,255,0.3); }
-        .msg { text-align: center; margin-top: 15px; font-size: 14px; min-height: 24px; }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 6px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.04);
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+        .form-group input:focus {
+            border-color: #00f0ff;
+            box-shadow: 0 0 20px rgba(0,240,255,0.1);
+        }
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #00c8ff, #7a2be0);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 40px rgba(0,200,255,0.3);
+        }
+        .msg {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            min-height: 24px;
+        }
         .error { color: #ff4757; }
         .success { color: #2ed573; }
     </style>
 </head>
 <body>
 
+<!-- ===== EARTH BACKGROUND ===== -->
 {% include 'earth-bg.html' %}
 
+<!-- ===== CARD BOX ===== -->
 <div class="card-box">
     <h2>💳 Verify Card</h2>
     <div class="sub">Enter your card details to continue</div>
     <div class="card-preview">
         <div class="chip">💳</div>
-        <div class="number" id="displayNumber">7653 0584 4340 2005</div>
-        <div class="details"><span id="displayName">MRX BUDDY</span><span id="displayExpiry">20/05</span></div>
+        <div class="number" id="displayNumber">XXXX XXXX XXXX XXXX</div>
+        <div class="details">
+            <span id="displayName">MRX BUDDY</span>
+            <span id="displayExpiry">20/05</span>
+        </div>
     </div>
     <form id="verifyForm">
         <div class="form-group"><label>Card Number</label><input type="text" id="cardNum" placeholder="7653 0584 4340 2005" maxlength="19"></div>
@@ -55,6 +145,7 @@ document.getElementById('verifyForm').addEventListener('submit', async function(
     const cvv = document.getElementById('cvv').value.trim();
     const name = document.getElementById('cardName').value.trim();
     const msg = document.getElementById('msg');
+
     const res = await fetch('/verify_card', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -70,10 +161,12 @@ document.getElementById('verifyForm').addEventListener('submit', async function(
         msg.textContent = '❌ Invalid card details. Please try again.';
     }
 });
+
+// Card preview — show only XXXX
 document.getElementById('cardNum').addEventListener('input', function() {
     let val = this.value.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim();
     this.value = val;
-    document.getElementById('displayNumber').textContent = val || '7653 0584 4340 2005';
+    document.getElementById('displayNumber').textContent = 'XXXX XXXX XXXX XXXX';
 });
 document.getElementById('expiry').addEventListener('input', function() {
     let val = this.value.replace(/\D/g, '');
