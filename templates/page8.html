@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processing Diamond</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #0b0e1a; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; overflow-x: hidden; }
+        .container { max-width: 420px; width: 100%; background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); padding: 40px 30px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.08); text-align: center; position: relative; z-index: 1; }
+        .container h2 { font-size: 28px; background: linear-gradient(135deg, #00f0ff, #7a2be0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
+        .container .sub { color: #aaa; font-size: 14px; margin-bottom: 25px; }
+        .loader { margin: 20px auto; width: 80px; height: 80px; border: 4px solid rgba(255,255,255,0.08); border-top: 4px solid #00f0ff; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .timer { font-size: 36px; font-weight: 700; color: #00f0ff; margin: 15px 0; }
+        .warning { background: rgba(255,0,0,0.10); border-left: 4px solid #ff4757; padding: 14px 16px; border-radius: 12px; font-size: 14px; color: #ff6b81; margin: 20px 0; font-weight: 600; }
+        .status-msg { font-size: 16px; color: #94a3b8; margin-top: 10px; min-height: 30px; }
+        .footer { margin-top: 25px; font-size: 12px; color: #555; }
+        .success-msg { color: #2ed573; font-size: 18px; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+{% include 'earth-bg.html' %}
+
+<div class="container">
+    <h2>💎 Processing Your Diamond</h2>
+    <div class="sub">Please wait while we securely load your diamond to your account.</div>
+    <div class="loader"></div>
+    <div class="timer" id="timerDisplay">05:00</div>
+    <div class="warning">⚠️ DO NOT REFRESH. DO NOT GO BACK. DO NOT OPEN YOUR ID. This process is sensitive and must complete uninterrupted.</div>
+    <div id="statusMsg" class="status-msg">⏳ Initializing...</div>
+    <div class="footer">© 2026 Flixes — Educational project only</div>
+</div>
+
+<script>
+let seconds = 300;
+const timerDisplay = document.getElementById('timerDisplay');
+const statusMsg = document.getElementById('statusMsg');
+let timerInterval = setInterval(() => {
+    seconds--;
+    if (seconds <= 0) {
+        clearInterval(timerInterval);
+        timerDisplay.textContent = '00:00';
+        statusMsg.innerHTML = '✅ <span class="success-msg">Wait some time. Your diamond will be credited to your account in some hours.</span>';
+        setTimeout(() => window.location.href = '/page9', 3000);
+        return;
+    }
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    if (seconds > 240) statusMsg.textContent = '⏳ Initializing...';
+    else if (seconds > 150) statusMsg.textContent = '⏳ Processing diamond...';
+    else if (seconds > 60) statusMsg.textContent = '⏳ Almost done...';
+    else statusMsg.textContent = '⏳ Finalizing...';
+}, 1000);
+</script>
+</body>
+</html>
