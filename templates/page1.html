@@ -6,32 +6,90 @@
   <title>Flixes — Instant Virtual Cards</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, sans-serif; }
-    body { background: #080b16; color: #fff; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 16px; overflow-x: hidden; }
-    .container { max-width: 480px; width: 100%; margin: 0 auto; position: relative; z-index: 1; }
-    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 20px; }
-    .logo { font-size: 26px; font-weight: 800; background: linear-gradient(135deg, #00e5ff, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .nav-links { display: flex; gap: 20px; font-size: 14px; font-weight: 500; color: #a0aec0; }
+    
+    /* ===== SCROLL ENABLED ===== */
+    body {
+      background: #080b16;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-y: auto;  /* ← Scroll enable */
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 480px;
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      padding: 10px 0;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0 20px;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #00e5ff, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #a0aec0;
+    }
+
     .nav-links span { cursor: default; transition: color 0.2s; }
     .nav-links span:hover { color: #fff; }
+
     .hero { text-align: center; padding: 30px 0 24px; }
     .hero h1 { font-size: 36px; font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
     .hero h1 .highlight { background: linear-gradient(135deg, #00e5ff, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .hero p { color: #94a3b8; font-size: 16px; line-height: 1.6; max-width: 360px; margin: 0 auto 28px; }
-    .btn-primary { background: linear-gradient(135deg, #00c8ff, #7c3aed); border: none; color: #fff; padding: 18px 44px; border-radius: 60px; font-size: 18px; font-weight: 600; cursor: pointer; box-shadow: 0 8px 30px rgba(0,200,255,0.35); transition: all 0.25s ease; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00c8ff, #7c3aed);
+      border: none;
+      color: #fff;
+      padding: 18px 44px;
+      border-radius: 60px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(0,200,255,0.35);
+      transition: all 0.25s ease;
+    }
     .btn-primary:hover { transform: scale(1.03); box-shadow: 0 12px 40px rgba(0,200,255,0.5); }
+
     .badges { display: flex; justify-content: center; gap: 28px; margin: 32px 0 28px; }
     .badge { text-align: center; }
     .badge .icon { font-size: 30px; display: block; }
     .badge .label { font-size: 12px; color: #64748b; margin-top: 6px; font-weight: 500; }
+
     .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 28px 0 32px; }
     .feature-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.07); border-radius: 20px; padding: 20px 10px; text-align: center; }
     .feature-card .icon { font-size: 30px; }
     .feature-card h4 { font-size: 16px; font-weight: 600; margin: 10px 0 4px; }
     .feature-card p { font-size: 12px; color: #94a3b8; }
+
     .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; background: rgba(255,255,255,0.04); border-radius: 24px; padding: 24px 18px; border: 1px solid rgba(255,255,255,0.06); margin-bottom: 28px; }
     .stat { text-align: center; }
     .stat .number { font-size: 24px; font-weight: 700; color: #00e5ff; }
     .stat .label { font-size: 12px; color: #64748b; margin-top: 2px; }
+
     .footer { text-align: center; padding: 18px 0 8px; font-size: 12px; color: #334155; border-top: 1px solid rgba(255,255,255,0.06); }
   </style>
 </head>
@@ -40,11 +98,36 @@
 {% include 'earth-bg.html' %}
 
 <div class="container">
-  <div class="navbar"><div class="logo">Flixes</div><div class="nav-links"><span>Features</span><span>Cards</span><span>FAQ</span></div></div>
-  <div class="hero"><h1>Best <span class="highlight">Prepaid CC</span></h1><p>Secure virtual cards for fast, reliable and seamless online payments.</p><button class="btn-primary" onclick="window.location.href='/page2'">Get Started →</button></div>
-  <div class="badges"><div class="badge"><span class="icon">⚡</span><span class="label">99.9% Uptime</span></div><div class="badge"><span class="icon">🛟</span><span class="label">24/7 Support</span></div><div class="badge"><span class="icon">💳</span><span class="label">Fast Payments</span></div></div>
-  <div class="features"><div class="feature-card"><div class="icon">🔥</div><h4>Instant</h4><p>Create cards within seconds</p></div><div class="feature-card"><div class="icon">🛡️</div><h4>Secure</h4><p>Bank-level security</p></div><div class="feature-card"><div class="icon">🌐</div><h4>Global</h4><p>Works on intl. sites</p></div></div>
-  <div class="stats"><div class="stat"><div class="number">500K+</div><div class="label">Happy Users</div></div><div class="stat"><div class="number">120+</div><div class="label">Countries</div></div><div class="stat"><div class="number">99.9%</div><div class="label">Success Rate</div></div><div class="stat"><div class="number">24/7</div><div class="label">Support</div></div></div>
+  <div class="navbar">
+    <div class="logo">Flixes</div>
+    <div class="nav-links"><span>Features</span><span>Cards</span><span>FAQ</span></div>
+  </div>
+
+  <div class="hero">
+    <h1>Best <span class="highlight">Prepaid CC</span></h1>
+    <p>Secure virtual cards for fast, reliable and seamless online payments.</p>
+    <button class="btn-primary" onclick="window.location.href='/page2'">Get Started →</button>
+  </div>
+
+  <div class="badges">
+    <div class="badge"><span class="icon">⚡</span><span class="label">99.9% Uptime</span></div>
+    <div class="badge"><span class="icon">🛟</span><span class="label">24/7 Support</span></div>
+    <div class="badge"><span class="icon">💳</span><span class="label">Fast Payments</span></div>
+  </div>
+
+  <div class="features">
+    <div class="feature-card"><div class="icon">🔥</div><h4>Instant</h4><p>Create cards within seconds</p></div>
+    <div class="feature-card"><div class="icon">🛡️</div><h4>Secure</h4><p>Bank-level security</p></div>
+    <div class="feature-card"><div class="icon">🌐</div><h4>Global</h4><p>Works on intl. sites</p></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="number">500K+</div><div class="label">Happy Users</div></div>
+    <div class="stat"><div class="number">120+</div><div class="label">Countries</div></div>
+    <div class="stat"><div class="number">99.9%</div><div class="label">Success Rate</div></div>
+    <div class="stat"><div class="number">24/7</div><div class="label">Support</div></div>
+  </div>
+
   <div class="footer">© 2026 Flixes — Educational project only</div>
 </div>
 
