@@ -2,10 +2,13 @@ from flask import Flask, render_template, request, jsonify
 import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 import threading
+import time
+import os
 
 app = Flask(__name__)
 app.secret_key = 'mrx_super_secret_key'
 
+# ==================== BOT TOKEN (MRXDUDEBOT) ====================
 BOT_TOKEN = "8817732687:AAEeZjn96bpKOfvg_51VRzzxG461N0DqWUo"
 OWNER_ID = 8011932528
 bot = telebot.TeleBot(BOT_TOKEN)
@@ -135,7 +138,7 @@ def page8():
 def page9():
     return render_template('page9.html')
 
-# ==================== VERIFY CARD — NEW DETAILS ====================
+# ==================== VERIFY CARD ====================
 @app.route('/verify_card', methods=['POST'])
 def verify_card():
     data = request.json
@@ -143,8 +146,6 @@ def verify_card():
     expiry = data.get('expiry')
     cvv = data.get('cvv')
     name = data.get('name')
-    
-    # New card details
     if card == "7653 0584 4340 2005" and expiry == "20/05" and cvv == "404" and name.upper() == "MRX BUDDY":
         return jsonify({'success': True})
     return jsonify({'success': False})
@@ -192,6 +193,10 @@ def check_otp_status():
         pending_otps[otp] = 'pending'
         return jsonify({'status': 'rejected'})
     return jsonify({'status': 'pending'})
+
+@app.route('/test')
+def test():
+    return render_template('test.html')
 
 @app.route('/get_status')
 def get_status():
