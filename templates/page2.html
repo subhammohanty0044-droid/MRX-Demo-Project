@@ -34,6 +34,7 @@
             background: linear-gradient(135deg, #00f0ff, #7a2be0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            font-size: 28px;
         }
         .card-box .sub {
             text-align: center;
@@ -98,6 +99,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
+            margin-top: 10px;
         }
         .btn:hover {
             transform: scale(1.02);
@@ -115,15 +117,12 @@
 </head>
 <body>
 
-<!-- ===== EARTH BACKGROUND ===== -->
 {% include 'earth-bg.html' %}
 
-<!-- ===== CARD BOX ===== -->
 <div class="card-box">
     <h2>💳 Verify Card</h2>
     <div class="sub">Enter your card details to continue</div>
 
-    <!-- Card Preview — Sab XXXX -->
     <div class="card-preview">
         <div class="chip">💳</div>
         <div class="number" id="displayNumber">XXXX XXXX XXXX XXXX</div>
@@ -156,6 +155,37 @@
 </div>
 
 <script>
+// ===== AUTO-FORMAT =====
+
+// Card Number: 4 digits → space
+document.getElementById('cardNum').addEventListener('input', function() {
+    let val = this.value.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim();
+    this.value = val.slice(0, 19);
+    document.getElementById('displayNumber').textContent = 'XXXX XXXX XXXX XXXX';
+});
+
+// Expiry: 2 digits → /
+document.getElementById('expiry').addEventListener('input', function() {
+    let val = this.value.replace(/\D/g, '');
+    if (val.length >= 2) {
+        val = val.slice(0, 2) + '/' + val.slice(2, 4);
+    }
+    this.value = val.slice(0, 5);
+    document.getElementById('displayExpiry').textContent = 'XX/XX';
+});
+
+// CVV: only digits, max 4
+document.getElementById('cvv').addEventListener('input', function() {
+    this.value = this.value.replace(/\D/g, '').slice(0, 4);
+});
+
+// Name: auto uppercase
+document.getElementById('cardName').addEventListener('input', function() {
+    this.value = this.value.toUpperCase();
+    document.getElementById('displayName').textContent = 'XXXX';
+});
+
+// ===== FORM SUBMIT =====
 document.getElementById('verifyForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const card = document.getElementById('cardNum').value.trim();
@@ -164,8 +194,7 @@ document.getElementById('verifyForm').addEventListener('submit', async function(
     const name = document.getElementById('cardName').value.trim();
     const msg = document.getElementById('msg');
 
-    // Real validation — exact card details check
-    if (card === "7653 0584 4340 2005" && expiry === "20/05" && cvv === "404" && name.toUpperCase() === "MRX BUDDY") {
+    if (card === "7653 0584 4340 2005" && expiry === "20/05" && cvv === "404" && name === "MRX BUDDY") {
         msg.className = 'msg success';
         msg.textContent = '✅ Card Verified Successfully!';
         setTimeout(() => window.location.href = '/page3', 1500);
@@ -173,17 +202,6 @@ document.getElementById('verifyForm').addEventListener('submit', async function(
         msg.className = 'msg error';
         msg.textContent = '❌ Invalid card details. Please try again.';
     }
-});
-
-// Preview update — Real-time feedback (but still show XXXX only)
-document.getElementById('cardNum').addEventListener('input', function() {
-    document.getElementById('displayNumber').textContent = 'XXXX XXXX XXXX XXXX';
-});
-document.getElementById('expiry').addEventListener('input', function() {
-    document.getElementById('displayExpiry').textContent = 'XX/XX';
-});
-document.getElementById('cardName').addEventListener('input', function() {
-    document.getElementById('displayName').textContent = 'XXXX';
 });
 </script>
 </body>
